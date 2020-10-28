@@ -14,12 +14,6 @@ writeScriptBin "nix-patch-compile-commands.sh" ''
         echo "There is no compile_commands.json file to edit!"
         echo "Create one with cmake using:"
         echo "(cd build && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .. && mv compile_commands.json ..)"
-        read -n 1 -p "Do you want to create a .cquery file instead? [Y/n]: " genCquery
-        genCquery=''${genCquery:-y}
-        case "$genCquery" in
-          y|Y ) nix-cflags-include | tr ' ' '\n' > .cquery && echo $'\nGenerated a new .cquery file' ;;
-          * ) echo $'\nNot doing anything!' ;;
-        esac
       fi
     }
     nix-patch-compile-commands
